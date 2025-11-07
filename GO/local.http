@@ -1,0 +1,5 @@
+GET http://localhost:8080/maria/car1nhanha
+# POST https://teste-uo3g.onrender.com/webhook HTTP/1.1
+
+###
+GET http://localhost:8080/repos/files/car1nhanha
