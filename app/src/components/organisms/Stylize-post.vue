@@ -7,7 +7,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div v-html="marked.parse(props.postFile)" class="markdown-body" />
+  <div v-html="marked.parse(props.postFile ?? '')" class="markdown-body" />
 </template>
 
 <style>
@@ -175,7 +175,7 @@ div.markdown-body img {
   max-width: 100%;
   border-radius: 8px;
   margin: 20px 0;
-  display: block;
+  display: inline-block;
 }
 
 /* ----------- HORIZONTAL RULE ----------- */
