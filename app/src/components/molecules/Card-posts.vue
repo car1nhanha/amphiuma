@@ -1,31 +1,43 @@
 <script setup lang="ts">
-import { formatDistanceToNow } from "date-fns";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
+const route = useRoute();
 const router = useRouter();
 
-export interface Post {
-  id: number;
-  title: string;
-  description: string;
-  date: string;
-  file_origin?: string;
-}
+// export interface Post {
+//   id: number;
+//   title: string;
+//   description: string;
+//   date: string;
+//   file_origin?: string;
+// }
+export type IApiResponse = {
+  Total: number;
+  Items: IFiles[];
+};
 
-const props = defineProps<{ post: Post }>();
+type IFiles = {
+  Name: string;
+  Path: string;
+  Url: string;
+};
 
-const goToPost = (id: string) => {
-  router.push(`/post/${id}`);
+const props = defineProps<{ post: IFiles }>();
+
+const user = route.params.user;
+
+const goToPost = (path: string) => {
+  router.push(`/${user}/${path}`);
 };
 </script>
 
 <template>
-  <div class="content" @click="goToPost(props.post.id)">
+  <div class="content" @click="goToPost(props.post.Path)">
     <div class="title-and-date">
-      <h4>{{ props.post.title }}</h4>
-      <span>{{ formatDistanceToNow(new Date(props.post.date)) }}</span>
+      <h4>{{ props.post.Name }}</h4>
+      <!-- <span>{{ formatDistanceToNow(new Date(props.post.date)) }}</span> -->
     </div>
-    <p>{{ props.post.description.slice(0, 182) }}</p>
+    <p>{{ props.post.Path.slice(0, 182) }}</p>
   </div>
 </template>
 

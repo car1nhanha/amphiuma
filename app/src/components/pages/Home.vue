@@ -1,10 +1,22 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
+import { ref } from "vue";
+import { useRoute } from "vue-router";
 import InputText from "../atoms/input-text.vue";
 import CardHeader from "../molecules/Card-header.vue";
-import type { Post } from "../molecules/Card-posts.vue";
-import CardPost from "../molecules/Card-posts.vue";
+import CardPost, { type IApiResponse } from "../molecules/Card-posts.vue";
 import TemplateDefault from "../templates/Defaut.vue";
+
+const route = useRoute();
+const userParams = route.params.user;
+
+const apiListPosts = ref({} as IApiResponse);
+
+fetch(`http://localhost:8080/v1/${userParams}`)
+  .then((response) => response.json())
+  .then((response: IApiResponse) => {
+    apiListPosts.value = response;
+  });
 
 const user = {
   image: "https://avatars.githubusercontent.com/u/34972401",
@@ -12,35 +24,35 @@ const user = {
   description:
     "Crux sacra sit mihi lux. Non draco sit mihi dux. Vade retro satana! Nunquam suade mihi vana. Sunt mala quae libas. Ipse venena bibas.",
   slug: "car1nhanha",
-  company: "nenhuma",
+  // company: "nenhuma",
   followers: 4,
 };
 
-const publications = {
-  quantity: 6,
-};
+// const publications = {
+//   quantity: 6,
+// };
 
-const posts: Post[] = [
-  {
-    id: 1,
-    title: "Explorando Vue 3",
-    description:
-      "Programming languages all have built-in data structures, but these often differ from one language to another. This article attempts to list the built-in data structures available in JavaScript and what properties they have. These can be used to build other data structures. Wherever possible, comparisons with other languages are drawn. Dynamic typing JavaScript is a loosely typed and dynamic language. Variables in JavaScript are not directly associated with any particular value type, and any variable can be assigned (and re-assigned) values of all types:",
-    date: "2025-10-29",
-  },
-  {
-    id: 2,
-    title: "Melhores práticas com TypeScript",
-    description: "Aprenda como usar TypeScript em projetos Vue para obter segurança e produtividade.",
-    date: "2025-10-15",
-  },
-  {
-    id: 3,
-    title: "Otimizando performance no front-end",
-    description: "Dicas e técnicas para deixar sua aplicação web mais leve e rápida.",
-    date: "2025-09-30",
-  },
-];
+// const posts: Post[] = [
+//   {
+//     id: 1,
+//     title: "Explorando Vue 3",
+//     description:
+//       "Programming languages all have built-in data structures, but these often differ from one language to another. This article attempts to list the built-in data structures available in JavaScript and what properties they have. These can be used to build other data structures. Wherever possible, comparisons with other languages are drawn. Dynamic typing JavaScript is a loosely typed and dynamic language. Variables in JavaScript are not directly associated with any particular value type, and any variable can be assigned (and re-assigned) values of all types:",
+//     date: "2025-10-29",
+//   },
+//   {
+//     id: 2,
+//     title: "Melhores práticas com TypeScript",
+//     description: "Aprenda como usar TypeScript em projetos Vue para obter segurança e produtividade.",
+//     date: "2025-10-15",
+//   },
+//   {
+//     id: 3,
+//     title: "Otimizando performance no front-end",
+//     description: "Dicas e técnicas para deixar sua aplicação web mais leve e rápida.",
+//     date: "2025-09-30",
+//   },
+// ];
 </script>
 
 <template>
@@ -56,7 +68,7 @@ const posts: Post[] = [
           <p>{{ user.description }}</p>
           <ul>
             <li><Icon icon="octicon:mark-github-24" /> {{ user.slug }}</li>
-            <li v-if="user.company"><Icon icon="flowbite:building-solid" /> {{ user.company }}</li>
+            <li><Icon icon="flowbite:building-solid" /> {{ apiListPosts.Total }} posts</li>
             <li><Icon icon="ic:round-star" /> {{ user.followers }} followers</li>
           </ul>
         </div>
@@ -66,13 +78,13 @@ const posts: Post[] = [
     <div class="find-container">
       <div class="find-container-header">
         <h3>Publicações</h3>
-        <span>{{ publications.quantity }} publicações</span>
+        <span>{{ apiListPosts.Total }} publicações</span>
       </div>
       <InputText placeholder="buscar conteúdo" />
     </div>
 
     <div class="posts">
-      <CardPost v-for="(value, index) in posts" :post="value" :key="index" />
+      <CardPost v-for="(value, index) in apiListPosts.Items" :post="value" :key="index" />
     </div>
   </TemplateDefault>
 </template>

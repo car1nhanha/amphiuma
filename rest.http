@@ -1,0 +1,31 @@
+GET http://localhost:8080/v1/car1nhanha
+# POST https://teste-uo3g.onrender.com/webhook HTTP/1.1
+
+###
+GET http://localhost:8080/repos/files/car1nhanha
+
+
+
+
+
+
+
+
+###
+GET https://api.github.com/users/car1nhanha
+###
+GET https://api.github.com/users/car1nhanha/repos
+###
+GET https://api.github.com/repos/car1nhanha/basic-api-golang
+###
+GET https://api.github.com/repos/car1nhanha/basic-api-golang/git/trees/main?recursive=1
+###
+GET https://api.github.com/search/code?q=extension:go+repo:car1nhanha/basic-api-golang
+Authorization: token ...
+###
+GET https://api.github.com/repositories/979636866/contents/main.go?ref=d5b3880713fd907988a5412610e6ef6b7673d9ec
+###
+GET https://api.github.com/repos/car1nhanha/basic-api-golang/contents/docs/docs.go
+###
+GET https://api.github.com/search/code?q=extension:md+user:car1nhanha
+Authorization: Token ghp_...
