@@ -4,22 +4,26 @@ import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
 const router = useRouter();
 
-// export interface Post {
-//   id: number;
-//   title: string;
-//   description: string;
-//   date: string;
-//   file_origin?: string;
-// }
 export type IApiResponse = {
   Total: number;
   Items: IFiles[];
+  User: IUser;
 };
 
 type IFiles = {
   Name: string;
   Path: string;
   Url: string;
+};
+
+type IUser = {
+  Login: string;
+  Name: string;
+  Avatar_url: string;
+  Url: string;
+  Public_repos: number;
+  Followers: number;
+  Following: number;
 };
 
 const props = defineProps<{ post: IFiles }>();

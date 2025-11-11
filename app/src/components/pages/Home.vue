@@ -17,59 +17,24 @@ fetch(`http://localhost:8080/v1/${userParams}`)
   .then((response: IApiResponse) => {
     apiListPosts.value = response;
   });
-
-const user = {
-  image: "https://avatars.githubusercontent.com/u/34972401",
-  name: "Lucas Carinhanha",
-  description:
-    "Crux sacra sit mihi lux. Non draco sit mihi dux. Vade retro satana! Nunquam suade mihi vana. Sunt mala quae libas. Ipse venena bibas.",
-  slug: "car1nhanha",
-  // company: "nenhuma",
-  followers: 4,
-};
-
-// const publications = {
-//   quantity: 6,
-// };
-
-// const posts: Post[] = [
-//   {
-//     id: 1,
-//     title: "Explorando Vue 3",
-//     description:
-//       "Programming languages all have built-in data structures, but these often differ from one language to another. This article attempts to list the built-in data structures available in JavaScript and what properties they have. These can be used to build other data structures. Wherever possible, comparisons with other languages are drawn. Dynamic typing JavaScript is a loosely typed and dynamic language. Variables in JavaScript are not directly associated with any particular value type, and any variable can be assigned (and re-assigned) values of all types:",
-//     date: "2025-10-29",
-//   },
-//   {
-//     id: 2,
-//     title: "Melhores práticas com TypeScript",
-//     description: "Aprenda como usar TypeScript em projetos Vue para obter segurança e produtividade.",
-//     date: "2025-10-15",
-//   },
-//   {
-//     id: 3,
-//     title: "Otimizando performance no front-end",
-//     description: "Dicas e técnicas para deixar sua aplicação web mais leve e rápida.",
-//     date: "2025-09-30",
-//   },
-// ];
 </script>
 
 <template>
   <TemplateDefault>
     <CardHeader>
       <div class="card-content">
-        <img :src="user.image" alt="User avatar" />
+        <img :src="apiListPosts.User.Avatar_url" alt="User avatar" />
         <div class="card-body">
           <div class="name-line">
-            <h2>{{ user.name }}</h2>
-            <a :href="`https://github.com/${user.slug}`">GITHUB <Icon icon="solar:square-arrow-right-up-broken" /></a>
+            <h2>{{ apiListPosts.User.Name }}</h2>
+            <a :href="`${apiListPosts.User.Url}`">GITHUB <Icon icon="solar:square-arrow-right-up-broken" /></a>
           </div>
-          <p>{{ user.description }}</p>
+          <!-- <p>{{ user.description }}</p> -->
           <ul>
-            <li><Icon icon="octicon:mark-github-24" /> {{ user.slug }}</li>
-            <li><Icon icon="flowbite:building-solid" /> {{ apiListPosts.Total }} posts</li>
-            <li><Icon icon="ic:round-star" /> {{ user.followers }} followers</li>
+            <li><Icon icon="octicon:mark-github-24" /> {{ apiListPosts.User.Login }}</li>
+            <li><Icon icon="iconoir:post" /> {{ apiListPosts.Total }} posts</li>
+            <li><Icon icon="ic:round-star" /> {{ apiListPosts.User.Followers }} followers</li>
+            <li><Icon icon="ic:round-star" /> {{ apiListPosts.User.Following }} Following</li>
           </ul>
         </div>
       </div>

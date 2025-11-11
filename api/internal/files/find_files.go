@@ -22,8 +22,13 @@ type List struct {
 	Url  string
 }
 
+type OFindOnGithub struct {
+	OFilesList
+	User OGetUser
+}
+
 // buscar todos os arquivos
-func FindOnGithub(user string) (*OFilesList, error) {
+func FindOnGithub(user string) (*OFindOnGithub, error) {
 	var files *interfaces.FindGithubFiles
 	url := "https://api.github.com/search/code?q=extension:amphiuma+user:" + user
 	token := os.Getenv("GITHUB_TOKEN")
@@ -61,7 +66,19 @@ func FindOnGithub(user string) (*OFilesList, error) {
 	}
 
 	parsed := parseFiles(files)
-	return parsed, nil
+
+	userFinal, err := GetUser(user)
+	if err != nil {
+		return nil, err
+	}
+
+	return &OFindOnGithub{
+		OFilesList: OFilesList{
+			Total: parsed.Total,
+			Items: parsed.Items,
+		},
+		User: *userFinal,
+	}, nil
 }
 
 // formatar uma resposta

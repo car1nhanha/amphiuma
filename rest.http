@@ -6,11 +6,6 @@ GET http://localhost:8080/repos/files/car1nhanha
 
 
 
-
-
-
-
-
 ###
 GET https://api.github.com/users/car1nhanha
 ###
