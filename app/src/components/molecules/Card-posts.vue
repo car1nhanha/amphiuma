@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 
 const route = useRoute();
-const router = useRouter();
 
 export type IApiResponse = {
   Total: number;
@@ -30,13 +29,15 @@ const props = defineProps<{ post: IFiles }>();
 
 const user = route.params.user;
 
-const goToPost = (path: string) => {
-  router.push(`/${user}/${path}`);
+const goToPost = () => {
+  const path = props.post.Path;
+  const url = `/${user}/${path}`;
+  window.location.href = url;
 };
 </script>
 
 <template>
-  <div class="content" @click="goToPost(props.post.Path)">
+  <div class="content" @click="goToPost()">
     <div class="title-and-date">
       <h4>{{ props.post.Name }}</h4>
       <!-- <span>{{ formatDistanceToNow(new Date(props.post.date)) }}</span> -->
