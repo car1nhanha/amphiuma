@@ -59,6 +59,7 @@ div.card-content {
   display: flex;
   flex-direction: row;
   gap: 32px;
+  flex: 1;
 }
 
 img {
@@ -72,6 +73,7 @@ div.card-body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  flex: 1;
 }
 
 div.name-line {

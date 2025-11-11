@@ -14,7 +14,7 @@ func main() {
 
 	{
 		v1 := router.Group("/v1")
-		v1.GET("/:user/:path", files.GetFileHandler)
+		v1.GET("/:user/*path", files.GetFileHandler)
 		v1.GET("/:user", files.ListFiles)
 	}
 

@@ -10,7 +10,7 @@ import TemplateDefault from "../templates/Defaut.vue";
 const route = useRoute();
 
 const user = route.params.user;
-const path = route.params.path;
+const path = route.params.path as string[];
 
 const file = ref("");
 const header = ref({} as header);
@@ -31,7 +31,9 @@ export type header = {
 
 const isTimestamp = (t: string) => /\d{13}/.test(t);
 
-fetch(`http://localhost:8080/v1/${user}/${path}`)
+console.log({ params: route.params });
+
+fetch(`http://localhost:8080/v1/${user}/${path.join("/")}`)
   .then((response) => response.json())
   .then((response: Iresponse) => response)
   .then((content) => {
@@ -47,7 +49,7 @@ fetch(`http://localhost:8080/v1/${user}/${path}`)
     <CardHeader>
       <div class="card-content">
         <div class="line-actions">
-          <a href="/"><Icon icon="solar:alt-arrow-left-line-duotone" /> return</a>
+          <a :href="`/${user}`"><Icon icon="solar:alt-arrow-left-line-duotone" />return</a>
           <a :href="`${header.File_origin}`">read on github <Icon icon="solar:square-arrow-right-up-broken" /></a>
         </div>
 
