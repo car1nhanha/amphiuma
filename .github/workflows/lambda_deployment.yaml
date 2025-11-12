@@ -57,6 +57,6 @@ jobs:
         uses: aws-actions/aws-lambda-deploy@v1
         with:
           function-name: ${{ env.FUNCTION_NAME }}
-          code-artifacts-dir: dist
+          code-artifacts-dir: ./api
           handler: bootstrap
           runtime: provided.al2
