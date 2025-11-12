@@ -34,7 +34,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:lambda:sa-east-1:375145148456:function:github_blog
+          role-to-assume: arn:aws:iam::375145148456:role/GitHubActionRole
           aws-region: ${{ env.AWS_REGION }}
 
       # Instala o Go
