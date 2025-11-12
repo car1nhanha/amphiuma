@@ -46,12 +46,10 @@ jobs:
 
       - name: Build Lambda binary
         run: |
-          go build -o bootstrap ./cmd/api/main.go
-
-      - name: Prepare Lambda package
-        run: |
-          mkdir -p dist
-          mv bootstrap dist/
+          cd cmd/api
+          GOOS=linux GOARCH=amd64 go build -o ../../bootstrap main.go
+          cd ../..
+          chmod +x bootstrap  # garante permissão de execução
 
       - name: Deploy Lambda Function
         uses: aws-actions/aws-lambda-deploy@v1
