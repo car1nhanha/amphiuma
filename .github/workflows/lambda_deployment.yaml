@@ -11,59 +11,52 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      id-token: write # Necessário para OIDC com AWS
-      contents: read # Necessário para checkout
+      id-token: write
+      contents: read
 
     defaults:
       run:
-        working-directory: ./api # Monorepo: entra na pasta da sua aplicação
+        working-directory: ./api
 
     env:
       AWS_REGION: us-east-1
-      FUNCTION_NAME: github_blog # Nome da função Lambda
+      FUNCTION_NAME: github_blog
       GOOS: linux
       GOARCH: amd64
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GITHUB_PERSONAL_TOKEN: ${{ secrets.GH_PERSONAL_TOKEN }} # seu token do GitHub para a API
+      GITHUB_PERSONAL_TOKEN: ${{ secrets.GH_PERSONAL_TOKEN }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Configura credenciais AWS via OpenID Connect
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::375145148456:role/GitHubActionRole
           aws-region: ${{ env.AWS_REGION }}
 
-      # Instala o Go
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
           go-version: "1.24"
 
-      # Instala dependências
       - name: Download Go modules
         run: go mod download
 
-      # Compila a aplicação como Lambda (Go custom runtime)
       - name: Build Lambda binary
         run: |
           go build -o bootstrap ./cmd/api/main.go
 
-      # Empacota o binário
-      - name: Zip Lambda package
-        run: zip function.zip bootstrap
+      - name: Prepare Lambda package
+        run: |
+          mkdir -p dist
+          mv bootstrap dist/
 
-      # Faz upload para AWS Lambda
       - name: Deploy Lambda Function
         uses: aws-actions/aws-lambda-deploy@v1
         with:
           function-name: ${{ env.FUNCTION_NAME }}
-          zip-file: function.zip
-          aws-region: ${{ env.AWS_REGION }}
-
-      # (Opcional) Verifica o status após o deploy
-      - name: Verify deployment
-        run: aws lambda get-function --function-name ${{ env.FUNCTION_NAME }} --region ${{ env.AWS_REGION }}
+          code-artifacts-dir: dist
+          handler: bootstrap
+          runtime: provided.al2
