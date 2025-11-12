@@ -46,8 +46,8 @@ jobs:
 
       - name: Build Lambda binary
         run: |
-          cd cmd/api
-          GOOS=linux GOARCH=amd64 go build -o bootstrap main.go
+          GOOS=linux GOARCH=amd64 go build -o bootstrap ./cmd/api/main.go
+          chmod +x bootstrap
 
       - name: Deploy Lambda Function
         uses: aws-actions/aws-lambda-deploy@v1
