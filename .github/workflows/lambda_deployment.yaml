@@ -19,7 +19,7 @@ jobs:
         working-directory: ./api
 
     env:
-      AWS_REGION: us-east-1
+      AWS_REGION: sa-east-1
       FUNCTION_NAME: github_blog
       GOOS: linux
       GOARCH: amd64
