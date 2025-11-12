@@ -14,7 +14,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-var ginLambda *ginadapter.GinLambda
+var ginLambda *ginadapter.GinLambdaV2
 
 func init() {
 	godotenv.Load(".env")
@@ -27,15 +27,15 @@ func init() {
 	router.GET("/:user", files.ListFiles)
 	router.GET("/", (func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{
-			"message": "✅😃👍",
+			"message": "✅👍😃👍",
 		})
 	}))
 
 	// Adapta o Gin para Lambda
-	ginLambda = ginadapter.New(router)
+	ginLambda = ginadapter.NewV2(router)
 }
 
-func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+func Handler(ctx context.Context, req events.APIGatewayV2HTTPRequest) (events.APIGatewayV2HTTPResponse, error) {
 	return ginLambda.ProxyWithContext(ctx, req)
 }
 
