@@ -14,10 +14,6 @@ jobs:
       id-token: write
       contents: read
 
-    defaults:
-      run:
-        working-directory: ./api
-
     env:
       AWS_REGION: sa-east-1
       FUNCTION_NAME: github_blog
@@ -49,12 +45,12 @@ jobs:
           cd cmd/api
           GOOS=linux GOARCH=amd64 go build -o ../../bootstrap main.go
           cd ../..
-          chmod +x bootstrap  # garante permissão de execução
+          chmod +x bootstrap
 
       - name: Deploy Lambda Function
         uses: aws-actions/aws-lambda-deploy@v1
         with:
           function-name: ${{ env.FUNCTION_NAME }}
-          code-artifacts-dir: ./api
+          code-artifacts-dir: .
           handler: bootstrap
           runtime: provided.al2
