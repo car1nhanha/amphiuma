@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"log"
+	"net/http"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
@@ -22,8 +23,13 @@ func init() {
 	router := gin.Default()
 	router.Use(cors.Default())
 
-	router.GET("/v1/:user/*path", files.GetFileHandler)
-	router.GET("/v1/:user", files.ListFiles)
+	router.GET("/:user/*path", files.GetFileHandler)
+	router.GET("/:user", files.ListFiles)
+	router.GET("/", (func(ctx *gin.Context) {
+		ctx.JSON(http.StatusOK, gin.H{
+			"message": "✅😃👍",
+		})
+	}))
 
 	// Adapta o Gin para Lambda
 	ginLambda = ginadapter.New(router)
