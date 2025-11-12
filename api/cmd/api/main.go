@@ -22,11 +22,8 @@ func init() {
 	router := gin.Default()
 	router.Use(cors.Default())
 
-	v1 := router.Group("/v1")
-	{
-		v1.GET("/:user/*path", files.GetFileHandler)
-		v1.GET("/:user", files.ListFiles)
-	}
+	router.GET("/v1/:user/*path", files.GetFileHandler)
+	router.GET("/v1/:user", files.ListFiles)
 
 	// Adapta o Gin para Lambda
 	ginLambda = ginadapter.New(router)
