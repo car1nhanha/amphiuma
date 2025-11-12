@@ -31,7 +31,7 @@ type OFindOnGithub struct {
 func FindOnGithub(user string) (*OFindOnGithub, error) {
 	var files *interfaces.FindGithubFiles
 	url := "https://api.github.com/search/code?q=extension:amphiuma+user:" + user
-	token := os.Getenv("GITHUB_TOKEN")
+	token := os.Getenv("GH_PERSONAL_TOKEN")
 	if token == "" {
 		return nil, fmt.Errorf("error to get token")
 	}

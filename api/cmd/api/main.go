@@ -1,22 +1,42 @@
 package main
 
 import (
+	"context"
+	"log"
+
+	"github.com/aws/aws-lambda-go/events"
+	"github.com/aws/aws-lambda-go/lambda"
+	ginadapter "github.com/awslabs/aws-lambda-go-api-proxy/gin"
 	"github.com/car1nhanha/amphiuma/internal/files"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
 
-func main() {
+var ginLambda *ginadapter.GinLambda
+
+func init() {
 	godotenv.Load(".env")
+
+	// Cria router normal
 	router := gin.Default()
 	router.Use(cors.Default())
 
+	v1 := router.Group("/v1")
 	{
-		v1 := router.Group("/v1")
 		v1.GET("/:user/*path", files.GetFileHandler)
 		v1.GET("/:user", files.ListFiles)
 	}
 
-	router.Run(":8080")
+	// Adapta o Gin para Lambda
+	ginLambda = ginadapter.New(router)
+}
+
+func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+	return ginLambda.ProxyWithContext(ctx, req)
+}
+
+func main() {
+	log.Println("✅ Lambda inicializada com sucesso.")
+	lambda.Start(Handler)
 }
