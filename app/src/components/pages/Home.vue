@@ -12,7 +12,7 @@ const userParams = route.params.user;
 
 const apiListPosts = ref({} as IApiResponse);
 
-fetch(`http://localhost:8080/v1/${userParams}`)
+fetch(`${import.meta.env.VITE_API_BACKEND}/${userParams}`)
   .then((response) => response.json())
   .then((response: IApiResponse) => {
     apiListPosts.value = response;

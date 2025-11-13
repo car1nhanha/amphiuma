@@ -33,7 +33,7 @@ const isTimestamp = (t: string) => /\d{13}/.test(t);
 
 console.log({ params: route.params });
 
-fetch(`http://localhost:8080/v1/${user}/${path.join("/")}`)
+fetch(`${import.meta.env.VITE_API_BACKEND}/${user}/${path.join("/")}`)
   .then((response) => response.json())
   .then((response: Iresponse) => response)
   .then((content) => {
