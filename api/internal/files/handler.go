@@ -8,9 +8,10 @@ import (
 
 func GetFileHandler(context *gin.Context) {
 	user := context.Param("user")
+	repo := context.Param("repo")
 	path := context.Param("path")
 
-	content, err := GetFile(user, path)
+	content, err := GetFile(user, repo, path)
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{
 			"message": err,

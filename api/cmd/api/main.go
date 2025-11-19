@@ -23,7 +23,7 @@ func init() {
 	router := gin.Default()
 	router.Use(cors.Default())
 
-	router.GET("/:user/*path", files.GetFileHandler)
+	router.GET("/:user/:repo/*path", files.GetFileHandler)
 	router.GET("/:user", files.ListFiles)
 	router.GET("/", (func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{

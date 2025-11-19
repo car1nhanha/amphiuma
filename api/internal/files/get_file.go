@@ -25,9 +25,9 @@ type IgetHeader struct {
 	Header *IHeaderFile
 }
 
-func GetFile(user, path string) (*IgetHeader, error) {
+func GetFile(user, repo, path string) (*IgetHeader, error) {
 	var file *interfaces.GithubFindFile
-	url := "https://api.github.com/repos/" + user + "/" + user + "/contents/" + path
+	url := "https://api.github.com/repos/" + user + "/" + repo + "/contents/" + path
 
 	response, err := http.Get(url)
 	if err != nil {
