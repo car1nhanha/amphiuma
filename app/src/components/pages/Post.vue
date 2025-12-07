@@ -32,8 +32,6 @@ export type header = {
 
 const isTimestamp = (t: string) => /\d{13}/.test(t);
 
-console.log({ params: route.params });
-
 fetch(`${import.meta.env.VITE_API_BACKEND}/${user}/${repo}/${path.join("/")}`)
   .then((response) => response.json())
   .then((response: Iresponse) => response)
