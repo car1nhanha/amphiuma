@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
@@ -15,12 +16,13 @@ import (
 )
 
 var ginLambda *ginadapter.GinLambdaV2
+var router *gin.Engine
 
 func init() {
 	godotenv.Load(".env")
 
 	// Cria router normal
-	router := gin.Default()
+	router = gin.Default()
 	router.Use(cors.Default())
 
 	router.GET("/:user/:repo/*path", files.GetFileHandler)
@@ -40,6 +42,16 @@ func Handler(ctx context.Context, req events.APIGatewayV2HTTPRequest) (events.AP
 }
 
 func main() {
-	log.Println("✅ Lambda inicializada com sucesso.")
-	lambda.Start(Handler)
+	// Verifica se está rodando localmente ou na Lambda
+	if os.Getenv("IS_RUNNING_LOCAL") == "true" {
+		// Modo local - inicia servidor HTTP normal
+		log.Println("🚀 Rodando localmente em http://localhost:8080")
+		if err := router.Run(":8080"); err != nil {
+			log.Fatal("Erro ao iniciar servidor:", err)
+		}
+	} else {
+		// Modo Lambda
+		log.Println("✅ Lambda inicializada com sucesso.")
+		lambda.Start(Handler)
+	}
 }

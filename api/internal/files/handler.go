@@ -23,8 +23,9 @@ func GetFileHandler(context *gin.Context) {
 
 func ListFiles(context *gin.Context) {
 	user := context.Param("user")
+	extension := context.DefaultQuery("extension", "amphiuma")
 
-	content, err := FindOnGithub(user)
+	content, err := FindOnGithub(user, extension)
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{
 			"message": err,

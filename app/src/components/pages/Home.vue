@@ -9,10 +9,12 @@ import TemplateDefault from "../templates/Defaut.vue";
 
 const route = useRoute();
 const userParams = route.params.user;
+const extension = route.query.extension as string | undefined;
+const queryParams = extension ? `?extension=${extension}` : "";
 
 const apiListPosts = ref({} as IApiResponse);
 
-fetch(`${import.meta.env.VITE_API_BACKEND}/${userParams}`)
+fetch(`${import.meta.env.VITE_API_BACKEND}/${userParams}${queryParams}`)
   .then((response) => response.json())
   .then((response: IApiResponse) => {
     apiListPosts.value = response;

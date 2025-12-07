@@ -6,7 +6,7 @@ type GithubFindFile struct {
 	Sha         string `json:"sha"`
 	Size        int    `json:"size"`
 	URL         string `json:"url"`
-	HTMLURL     string `json:"html_url"`
+	HtmlURL     string `json:"html_url"`
 	GitURL      string `json:"git_url"`
 	DownloadURL string `json:"download_url"`
 	Type        string `json:"type"`

@@ -13,6 +13,11 @@ type IFiles = {
   Name: string;
   Path: string;
   Url: string;
+  RepoInfo: {
+    Name: string;
+    FullName: string;
+    Description: string;
+  };
 };
 
 type IUser = {
@@ -30,8 +35,9 @@ const props = defineProps<{ post: IFiles }>();
 const user = route.params.user;
 
 const goToPost = () => {
+  const repo = props.post.RepoInfo.Name;
   const path = props.post.Path;
-  const url = `/${user}/${path}`;
+  const url = `/${user}/${repo}/${path}`;
   window.location.href = url;
 };
 </script>
@@ -40,6 +46,7 @@ const goToPost = () => {
   <div class="content" @click="goToPost()">
     <div class="title-and-date">
       <h4>{{ props.post.Name }}</h4>
+      <span> {{ props.post.RepoInfo.FullName }} - {{ props.post.RepoInfo.Description }} </span>
       <!-- <span>{{ formatDistanceToNow(new Date(props.post.date)) }}</span> -->
     </div>
     <p>{{ props.post.Path.slice(0, 182) }}</p>
@@ -66,8 +73,7 @@ div.content:hover {
 
 div.title-and-date {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: flex-start;
   gap: 20px;
 }
@@ -85,7 +91,7 @@ span {
   line-height: 160%;
   color: var(--span);
   min-width: 20%;
-  text-align: right;
+  text-align: left;
 }
 
 p {

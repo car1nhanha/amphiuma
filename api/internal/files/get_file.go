@@ -15,8 +15,8 @@ import (
 type IHeaderFile struct {
 	Title       string
 	Date        string
-	Author      string
 	Description string
+	Author      string
 	File_origin string
 }
 
@@ -50,7 +50,12 @@ func GetFile(user, repo, path string) (*IgetHeader, error) {
 	}
 
 	decodedFile := utils.DecodeBase64(file.Content)
-	return getParts(decodedFile), nil
+	parts := getParts(decodedFile)
+
+	parts.Header.Author = user
+	parts.Header.File_origin = file.HtmlURL
+
+	return parts, nil
 }
 
 func getParts(file string) *IgetHeader {
