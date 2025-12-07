@@ -167,4 +167,25 @@ div.find-container span {
   grid-template-columns: repeat(2, 1fr);
   gap: 32px;
 }
+
+@media screen and (max-width: 720px) {
+  .posts {
+    grid-template-columns: 1fr;
+  }
+
+  .name-line {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .name-line a {
+    font-size: 14px;
+  }
+
+  ul {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
 </style>

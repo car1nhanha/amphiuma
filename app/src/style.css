@@ -17,6 +17,11 @@
   --label: #3a536b;
 }
 
+* {
+  object-fit: border-box;
+  box-sizing: border-box;
+}
+
 html,
 body,
 #app {

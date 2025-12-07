@@ -33,4 +33,11 @@ div.content-body {
 .bottom-space {
   height: 200px;
 }
+
+@media screen and (max-width: 900px) {
+  div.content-body {
+    width: calc(96%);
+    margin: -88px auto 0 auto;
+  }
+}
 </style>
