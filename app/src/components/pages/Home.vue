@@ -29,7 +29,9 @@ fetch(`${import.meta.env.VITE_API_BACKEND}/${userParams}${queryParams}`)
         <div class="card-body">
           <div class="name-line">
             <h2>{{ apiListPosts.User.Name }}</h2>
-            <a :href="`${apiListPosts.User.Url}`">GITHUB <Icon icon="solar:square-arrow-right-up-broken" /></a>
+            <a :href="`https://github.com/${apiListPosts.User.Login}`"
+              >GITHUB <Icon icon="solar:square-arrow-right-up-broken"
+            /></a>
           </div>
           <!-- <p>{{ user.description }}</p> -->
           <ul>
