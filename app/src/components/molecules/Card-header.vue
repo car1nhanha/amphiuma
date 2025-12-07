@@ -11,7 +11,6 @@ section {
   display: flex;
   align-items: center;
 
-  width: calc(864px - 32 * 2px);
   padding: 32px;
   border-radius: 10px;
 

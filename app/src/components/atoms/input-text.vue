@@ -1,9 +1,20 @@
 <script setup lang="ts">
-defineProps<{ placeholder?: string }>();
+const props = defineProps<{ placeholder?: string; modelValue?: string }>();
+const emit = defineEmits<{ (e: "update:modelValue", value: string): void; (e: "change", value: string): void }>();
+
+const onInput = (event: Event) => {
+  const value = (event.target as HTMLInputElement).value;
+  emit("update:modelValue", value);
+};
+
+const onChange = (event: Event) => {
+  const value = (event.target as HTMLInputElement).value;
+  emit("change", value);
+};
 </script>
 
 <template>
-  <input :placeholder="placeholder" />
+  <input :placeholder="props.placeholder" :value="props.modelValue" @input="onInput" @change="onChange" />
 </template>
 
 <style scoped>

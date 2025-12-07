@@ -13,6 +13,17 @@ const extension = route.query.extension as string | undefined;
 const queryParams = extension ? `?extension=${extension}` : "";
 
 const apiListPosts = ref({} as IApiResponse);
+const originalPosts = ref([] as typeof apiListPosts.value.Items);
+
+const logInput = (value: string) => {
+  const oldPost = originalPosts.value.length
+    ? originalPosts.value
+    : (originalPosts.value = apiListPosts.value.Items.slice());
+
+  const filteredPosts = oldPost.filter((post) => post.Name.toLowerCase().includes(value.toLowerCase()));
+
+  apiListPosts.value.Items = filteredPosts;
+};
 
 fetch(`${import.meta.env.VITE_API_BACKEND}/${userParams}${queryParams}`)
   .then((response) => response.json())
@@ -49,7 +60,7 @@ fetch(`${import.meta.env.VITE_API_BACKEND}/${userParams}${queryParams}`)
         <h3>Publicações</h3>
         <span>{{ apiListPosts.Total }} publicações</span>
       </div>
-      <InputText placeholder="buscar conteúdo" />
+      <InputText placeholder="buscar conteúdo" @update:modelValue="logInput" />
     </div>
 
     <div class="posts">
