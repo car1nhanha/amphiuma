@@ -173,12 +173,11 @@ div.find-container span {
     grid-template-columns: 1fr;
   }
 
-  .name-line {
+  div.name-line {
     flex-direction: column;
-    align-items: flex-start;
     gap: 8px;
   }
-  .name-line a {
+  div.name-line a {
     font-size: 14px;
   }
 
