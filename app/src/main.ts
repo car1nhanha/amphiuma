@@ -1,7 +1,7 @@
 import { createApp, h } from "vue";
 import { createRouter, createWebHistory, RouterView } from "vue-router";
 import Home from "./components/pages/Home.vue";
-import Landing from "./components/pages/Landing.vue";
+import Landing from "./components/pages/landing/Landing.vue";
 import Post from "./components/pages/Post.vue";
 import "./reset.css";
 import "./style.css";
