@@ -7,6 +7,17 @@
   height: 100vh;
   min-height: 500px;
   background-color: var(--profile);
+  position: relative;
+  overflow: hidden;
+
+  background-image: url("/header-effect-left.svg"), url("/header-effect-right.svg");
+  background-position:
+    -50% center,
+    150% center;
+  background-repeat: no-repeat, no-repeat;
+  background-size:
+    clamp(440px, 52vw, 760px) 100%,
+    clamp(440px, 52vw, 760px) 100%;
 }
 
 .h1 {
@@ -98,6 +109,15 @@ button {
 }
 
 @media screen and (max-width: 950px) {
+  .header {
+    background-position:
+      -50% center,
+      150% center;
+    background-size:
+      clamp(300px, 76vw, 480px) 100%,
+      clamp(300px, 76vw, 480px) 100%;
+  }
+
   .body {
     padding: 20px;
   }
