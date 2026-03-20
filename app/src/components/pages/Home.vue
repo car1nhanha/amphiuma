@@ -57,10 +57,10 @@ fetch(`${import.meta.env.VITE_API_BACKEND}/${userParams}${queryParams}`)
 
     <div class="find-container">
       <div class="find-container-header">
-        <h3>Publicações</h3>
-        <span>{{ apiListPosts.Total }} publicações</span>
+        <h3>Posts</h3>
+        <span>{{ apiListPosts.Total }} posts</span>
       </div>
-      <InputText placeholder="buscar conteúdo" @update:modelValue="logInput" />
+      <InputText placeholder="search content" @update:modelValue="logInput" />
     </div>
 
     <div class="posts">

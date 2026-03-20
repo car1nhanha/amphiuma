@@ -1,7 +1,26 @@
+<script lang="ts" setup>
+import CodeBlock from "./CodeBlock.vue";
+
+const amphiuma = `# Amphiuma
+
+**Amphiuma** is a genus of aquatic
+__salamanders__ from the southeastern
+United States.`;
+
+const frontMatter = `---
+title: Amphiuma
+date: 1762810343151
+description: Open source is philosophy
+---
+# my content
+`;
+</script>
+
 <template>
   <section class="section-container">
     <div class="card-body">
-      <img src="/amphiuma.png" alt="Amphiuma" />
+      <!-- <img src="/amphiuma.png" alt="Amphiuma" /> -->
+      <CodeBlock :code="amphiuma" lang="markdown" title="README.md" />
       <div class="card-content">
         <h3 class="card-title">Create a .md file</h3>
         <p class="card-description">
@@ -15,7 +34,8 @@
         <h3 class="card-title">Use Front Matter</h3>
         <p class="card-description">Use Front Matter to add metadata to your .md file.</p>
       </div>
-      <img src="/front-metter.png" alt="Front Matter" />
+      <!-- <img src="/front-metter.png" alt="Front Matter" /> -->
+      <CodeBlock :code="frontMatter" lang="markdown" title="front-matter.md" />
     </div>
   </section>
 </template>
@@ -54,7 +74,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: 54px;
+  padding: 40px;
 }
 .card-title {
   font-weight: 500;

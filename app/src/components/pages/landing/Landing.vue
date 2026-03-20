@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import CardLanding from "../../molecules/Card-landing.vue";
+import { Vue3Lottie } from "vue3-lottie";
+import arrowDown from "../../../assets/scroll-down.json";
+import CardLanding from "../../molecules/CardLanding.vue";
 
 const user = ref("");
 const projectName = import.meta.env.VITE_PROJECT_NAME;
@@ -20,6 +22,10 @@ const goToProfile = () => {
     <div class="find-container-header">
       <input class="input" placeholder="Enter username" v-model="user" />
       <button @click="goToProfile">Explore</button>
+    </div>
+
+    <div class="arrow-down">
+      <Vue3Lottie :animationData="arrowDown" :height="200" :width="200" />
     </div>
   </header>
 

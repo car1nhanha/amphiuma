@@ -77,11 +77,13 @@ button {
   background: var(--blue);
   border-radius: 17px;
   padding: 16px;
+  /* border: 1px solid var(--border); */
   font-style: normal;
   font-weight: 600;
   font-size: 17px;
   line-height: 27px;
   color: var(--title);
+  cursor: pointer;
 }
 
 .body {
@@ -132,4 +134,11 @@ button {
 
   color: var(--title);
   text-align: center;
+}
+
+/* arrow down */
+.arrow-down {
+  position: absolute;
+  bottom: 20px;
+  opacity: 0.2;
 }

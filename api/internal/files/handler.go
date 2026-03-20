@@ -23,7 +23,7 @@ func GetFileHandler(context *gin.Context) {
 
 func ListFiles(context *gin.Context) {
 	user := context.Param("user")
-	extension := context.DefaultQuery("extension", "amphiuma")
+	extension := context.DefaultQuery("extension", "md")
 
 	content, err := FindOnGithub(user, extension)
 	if err != nil {
