@@ -21,7 +21,7 @@ const goToProfile = () => {
     <p class="subtitle">Discover and share</p>
     <p class="description">Turn your GitHub posts into accessible content in a simple and fast way.</p>
     <div class="find-container-header">
-      <input class="input" placeholder="Enter username" v-model="user" />
+      <input class="input" placeholder="Enter username" v-model="user" @keydown.enter="goToProfile" />
       <button @click="goToProfile">Explore</button>
     </div>
 
