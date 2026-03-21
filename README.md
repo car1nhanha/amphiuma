@@ -1,38 +1,123 @@
 # Amphiuma
 
-Aplicação fullstack para listar e renderizar conteúdo Markdown vindo do GitHub.
+> Um projeto fullstack para descobrir, listar e renderizar arquivos Markdown direto do GitHub, com frontend moderno e backend em Go.
 
-Stack principal:
+![Vue.js](https://img.shields.io/badge/Vue.js-42b883?style=for-the-badge&logo=vue.js&logoColor=white)
+![Go](https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 
-- Frontend: Vue 3, Vite, TypeScript
-- Backend: Go, Gin
+---
 
-## Visão geral
+## Visão Geral
 
-O frontend permite:
+O Amphiuma conecta dois mundos:
 
-- Buscar conteúdos de um usuário do GitHub
-- Filtrar por extensão de arquivo
-- Abrir e renderizar um arquivo Markdown
+- Frontend com Vue 3 + Vite para uma experiência rápida e elegante
+- Backend em Go + Gin para buscar e tratar conteúdo no GitHub
 
-O backend expõe endpoints que:
+Com ele você consegue:
 
-- Buscam arquivos via GitHub Search API
-- Buscam conteúdo de arquivo no repositório
-- Extraem front matter quando disponível
+- Descobrir arquivos por usuário e extensão
+- Abrir conteúdo Markdown de repositórios
+- Ler metadados de front matter quando existirem
 
-## Estrutura do projeto
+---
 
-amphiuma/
+## Stack Tecnológica
 
-- api/
-  - cmd/api/main.go
-  - internal/files/
-  - internal/interfaces/
-  - pkg/utils/
-- app/
-  - src/
-  - public/
+### Frontend
+
+- Vue 3
+- Vite
+- TypeScript
+- Vue Router
+- Marked
+- date-fns
+- Shiki
+- Iconify
+
+### Backend
+
+- Go 1.24+
+- Gin
+- CORS
+- Integração com GitHub API
+
+---
+
+## Estrutura do Projeto
+
+```bash
+.
+├── api
+│   ├── cmd
+│   │   └── api
+│   │       └── main.go
+│   ├── go.mod
+│   ├── go.sum
+│   ├── internal
+│   │   ├── files
+│   │   │   ├── find_files.go
+│   │   │   ├── get_file.go
+│   │   │   ├── get_user.go
+│   │   │   └── handler.go
+│   │   └── interfaces
+│   │       ├── find_github.go
+│   │       └── github_response.go
+│   └── pkg
+│       └── utils
+│           └── base64.go
+├── app
+│   ├── blog.png
+│   ├── index.html
+│   ├── package.json
+│   ├── public
+│   │   ├── amphiuma.png
+│   │   ├── front-metter.png
+│   │   ├── header-effect-left.svg
+│   │   ├── header-effect-right.svg
+│   │   ├── terminal-solid.svg
+│   │   ├── test.md
+│   │   └── vite.svg
+│   ├── README.md
+│   ├── src
+│   │   ├── assets
+│   │   │   ├── scroll-down.json
+│   │   │   └── vue.svg
+│   │   ├── components
+│   │   │   ├── atoms
+│   │   │   │   └── input-text.vue
+│   │   │   ├── molecules
+│   │   │   │   ├── Card-header.vue
+│   │   │   │   ├── Card-posts.vue
+│   │   │   │   ├── CardLanding.vue
+│   │   │   │   └── CodeBlock.vue
+│   │   │   ├── organisms
+│   │   │   │   ├── Header.vue
+│   │   │   │   └── Stylize-post.vue
+│   │   │   ├── pages
+│   │   │   │   ├── Home.vue
+│   │   │   │   ├── landing
+│   │   │   │   │   ├── landing.css
+│   │   │   │   │   └── Landing.vue
+│   │   │   │   └── Post.vue
+│   │   │   └── templates
+│   │   │       └── Defaut.vue
+│   │   ├── main.ts
+│   │   ├── reset.css
+│   │   ├── style.css
+│   │   └── types
+│   │       └── json.d.ts
+│   ├── tsconfig.app.json
+│   ├── tsconfig.json
+│   ├── tsconfig.node.json
+│   ├── vercel.json
+│   └── vite.config.ts
+└── README.md
+```
+
+---
 
 ## Pré-requisitos
 
@@ -40,69 +125,94 @@ amphiuma/
 - npm
 - Go 1.24+
 
-## Variáveis de ambiente
+---
 
-Backend, arquivo api/.env:
+## Variáveis de Ambiente
 
-- GH*PERSONAL_TOKEN=Token ghp*...
-- IS_RUNNING_LOCAL=true
+### Backend, arquivo api/.env
 
-Frontend, arquivo app/.env:
+```env
+GH_PERSONAL_TOKEN=Token ghp_...
+IS_RUNNING_LOCAL=true
+```
 
-- VITE_API_BACKEND=http://localhost:8080
-- VITE_PROJECT_NAME=Amphiuma
+### Frontend, arquivo app/.env
+
+```env
+VITE_API_BACKEND=http://localhost:8080
+VITE_PROJECT_NAME=Amphiuma
+```
 
 Importante:
 
-- Não comitar tokens reais no repositório.
+- Nunca commitar token real no repositório
+
+---
 
 ## Instalação
 
-Na raiz do projeto:
+### 1. Frontend
 
-1. Frontend
-   - cd app
-   - npm install
+```bash
+cd app
+npm install
+```
 
-2. Backend
-   - cd ../api
-   - go mod tidy
+### 2. Backend
 
-## Como rodar em desenvolvimento
+```bash
+cd ../api
+go mod tidy
+```
 
-1. Subir backend local
-   - cd api
-   - IS_RUNNING_LOCAL=true go run ./cmd/api
+---
 
-2. Subir frontend
-   - cd app
-   - npm run dev
+## Como Rodar em Desenvolvimento
 
-URLs locais:
+### Backend local
+
+```bash
+cd api
+IS_RUNNING_LOCAL=true go run ./cmd/api
+```
+
+### Frontend
+
+```bash
+cd app
+npm run dev
+```
+
+Endpoints locais:
 
 - Frontend: http://localhost:5173
 - Backend: http://localhost:8080
 
-## Build do frontend
+---
 
-- cd app
-- npm run build
-- npm run preview
+## Build do Frontend
 
-## Rotas do frontend
+```bash
+cd app
+npm run build
+npm run preview
+```
 
-- /
-  - Landing
-- /:user
-  - Lista de arquivos do usuário
-- /:user/:repo/:path
-  - Visualização do arquivo
+---
+
+## Rotas do Frontend
+
+- / -> Landing
+- /:user -> Lista de arquivos do usuário
+- /:user/:repo/:path -> Visualização de arquivo
+
+---
 
 ## Endpoints da API
 
-1. GET /:user
+### GET /:user
 
-Lista arquivos do usuário no GitHub.
+Lista arquivos de um usuário no GitHub.
 
 Query params:
 
@@ -110,36 +220,43 @@ Query params:
 
 Exemplo:
 
-- GET http://localhost:8080/car1nhanha?extension=md
+```bash
+curl "http://localhost:8080/car1nhanha?extension=md"
+```
 
-2. GET /:user/:repo/\*path
+### GET /:user/:repo/\*path
 
-Busca e retorna o conteúdo de um arquivo específico.
+Busca conteúdo de um arquivo específico.
 
 Exemplo:
 
-- GET http://localhost:8080/car1nhanha/amphiuma/README.md
+```bash
+curl "http://localhost:8080/car1nhanha/amphiuma/README.md"
+```
 
-3. GET /
+### GET /
 
-Health check simples.
+Health check da API.
 
-## Fluxo resumido
+---
+
+## Fluxo da Aplicação
 
 1. Usuário acessa a landing
 2. Informa o username do GitHub
-3. Frontend consulta GET /:user
+3. Frontend chama GET /:user
 4. Usuário abre um arquivo
-5. Frontend consulta GET /:user/:repo/\*path
-6. Frontend renderiza o Markdown
+5. Frontend chama GET /:user/:repo/\*path
+6. Conteúdo Markdown é renderizado
 
-## Observações úteis
-
-- Se o backend subir sem IS_RUNNING_LOCAL=true, ele entra em modo Lambda.
-- O frontend usa VITE_API_BACKEND para apontar para a API.
+---
 
 ## Autor
 
 Lucas Carinhanha
 
 - GitHub: https://github.com/car1nhanha
+
+---
+
+Feito com código, café e um pouco de caos.
