@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Footer from "../organisms/Footer.vue";
 import HeaderOrganism from "../organisms/Header.vue";
 </script>
 
@@ -8,8 +9,9 @@ import HeaderOrganism from "../organisms/Header.vue";
     <div class="content-body">
       <slot></slot>
     </div>
-    <div class="bottom-space"></div>
+    <!-- <div class="bottom-space"></div> -->
   </div>
+  <Footer />
 </template>
 
 <style scoped>

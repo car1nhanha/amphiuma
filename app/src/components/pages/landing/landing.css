@@ -89,7 +89,8 @@ button {
 .body {
   display: flex;
   justify-content: center;
-  padding: 200px;
+  padding-top: 150px;
+  padding-bottom: 100px;
 }
 
 .body-container {

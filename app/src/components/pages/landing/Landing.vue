@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { Vue3Lottie } from "vue3-lottie";
 import arrowDown from "../../../assets/scroll-down.json";
 import CardLanding from "../../molecules/CardLanding.vue";
+import Footer from "../../organisms/Footer.vue";
 
 const user = ref("");
 const projectName = import.meta.env.VITE_PROJECT_NAME;
@@ -35,6 +36,8 @@ const goToProfile = () => {
       <CardLanding />
     </div>
   </div>
+
+  <Footer />
 </template>
 
 <style src="./landing.css"></style>
