@@ -40,7 +40,12 @@ fetch(`${import.meta.env.VITE_API_BACKEND}/${user}/${repo}/${path.join("/")}`)
     header.value = content.Header;
     created_at.value = isTimestamp(content.Header.Date) ? parseInt(content.Header.Date) : content.Header.Date;
   })
-  .catch(() => alert("deu erro"));
+  .catch((err) => alert(err.message));
+
+const created = (created_at: string) => {
+  if (!created_at) return "";
+  formatDistanceToNow(new Date(created_at));
+};
 </script>
 
 <template>
@@ -56,7 +61,7 @@ fetch(`${import.meta.env.VITE_API_BACKEND}/${user}/${repo}/${path.join("/")}`)
 
         <ul>
           <li><Icon icon="octicon:mark-github-24" /> {{ user }}</li>
-          <li><Icon icon="solar:calendar-mark-bold" /> {{ formatDistanceToNow(new Date(created_at)) }}</li>
+          <li v-if="header.Date"><Icon icon="solar:calendar-mark-bold" /> {{ created(header.Date) }}</li>
         </ul>
       </div>
     </CardHeader>

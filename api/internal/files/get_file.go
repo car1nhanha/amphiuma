@@ -59,15 +59,28 @@ func GetFile(user, repo, path string) (*IgetHeader, error) {
 }
 
 func getParts(file string) *IgetHeader {
+	fmt.Println("🚂 buscando partes")
 	content := &IgetHeader{}
+	content.Header = &IHeaderFile{}
 
 	firstTraces := strings.Index(file, "---")
-	secondTrace := strings.Index(file[firstTraces+3:], "---")
+	fmt.Printf("🚋 primeira parte do --- em %d\n", firstTraces)
+	secondTrace := -1
+
+	if firstTraces < 0 {
+		secondTrace = strings.Index(file[firstTraces+3:], "---")
+		fmt.Printf("🚋 segunda parte parte do --- em %d\n", secondTrace)
+
+	}
 
 	if secondTrace < 0 {
+		fmt.Println("🚞 nenhum front mettem encontrado")
 		content.File = file
-		content.Header.Description = ""
+		fmt.Println("🚋 preenchendo o file")
+		content.Header.Description = " "
+		fmt.Println("🚋 preenchido o header.Description")
 		content.Header.Title = getTitle(content.File)
+		fmt.Println("🚋 preenchido o header.Title")
 		return content
 	}
 
