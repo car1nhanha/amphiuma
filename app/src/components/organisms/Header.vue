@@ -1,10 +1,18 @@
 <script setup lang="ts">
+import { useRouter } from "vue-router";
+
+const routes = useRouter();
+
 const projectName = import.meta.env.VITE_PROJECT_NAME;
+
+const goToLanding = () => {
+  routes.push("/");
+};
 </script>
 
 <template>
   <header>
-    <div class="content">
+    <div class="content" :onclick="goToLanding">
       <img src="/terminal-solid.svg" class="terminal-solid" />
       <h1>{{ projectName }}</h1>
     </div>
@@ -28,7 +36,9 @@ header {
   overflow: hidden;
 
   background-image: url("/header-effect-left.svg"), url("/header-effect-right.svg");
-  background-position: left center, right center;
+  background-position:
+    left center,
+    right center;
   background-repeat: no-repeat, no-repeat;
 }
 
@@ -38,6 +48,7 @@ header {
   align-items: center;
   justify-content: center;
   gap: 20px;
+  cursor: pointer;
 }
 
 img.terminal-solid {
