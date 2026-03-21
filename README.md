@@ -1,251 +1,145 @@
-# 📝 GitHub Blog - Amphiuma
-
-Um blog fullstack que renderiza posts em Markdown diretamente do GitHub!
-
-![Vue.js](https://img.shields.io/badge/Vue.js-42b883?style=for-the-badge&logo=vue.js&logoColor=white)
-![Go](https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-
----
-
-## 🎯 Sobre o Projeto
-
-**GitHub Blog** é uma aplicação que permite visualizar e renderizar arquivos Markdown diretamente do GitHub. A aplicação consiste em um **frontend moderno** desenvolvido com Vue 3 + Vite e um **backend robusto** em Go com Gin.
-
-Acesse repositórios GitHub através de uma URL simples e visualize seus posts em Markdown de forma elegante e responsiva!
-
----
-
-## 🚀 Stack Tecnológico
-
-### Frontend (`/app`)
-
-- ⚡ **Vite** — Build tool ultra-rápida
-- 🖼️ **Vue 3** — Framework progressivo reativo
-- 📘 **TypeScript** — Type safety no JavaScript
-- 🎨 **CSS3** — Styling responsivo
-- 📅 **date-fns** — Formatação de datas
-- ✍️ **Marked** — Parser de Markdown
-- 🧭 **Vue Router** — Roteamento de páginas
-- 🎨 **Iconify** — Biblioteca de ícones
-
-### Backend (`/api`)
-
-- 🐹 **Go 1.24.1** — Linguagem eficiente
-- 🍸 **Gin** — Framework web de alto desempenho
-- 🔐 **CORS** — Controle de requisições cross-origin
-
----
-
-## 📂 Estrutura do Projeto
-
-```
-github-blog/
-├── api/                           # Backend em Go
-│   ├── cmd/
-│   │   └── api/
-│   │       └── main.go           # Entrada da aplicação
-│   ├── internal/
-│   │   ├── files/
-│   │   │   ├── handler.go        # Handlers HTTP
-│   │   │   └── get_file.go       # Lógica de busca de arquivos
-│   │   └── interfaces/
-│   │       └── github_response.go # Structs de resposta GitHub
-│   ├── pkg/
-│   │   └── utils/
-│   │       └── base64.go         # Utilitários de encoding
-│   └── go.mod
-│
-├── app/                           # Frontend em Vue 3 + TypeScript
-│   ├── src/
-│   │   ├── main.ts               # Entry point
-│   │   ├── style.css             # Estilos globais
-│   │   ├── components/
-│   │   │   ├── atoms/            # Componentes pequenos
-│   │   │   ├── molecules/        # Componentes médios
-│   │   │   ├── organisms/        # Componentes grandes
-│   │   │   ├── pages/            # Páginas de rota
-│   │   │   └── templates/        # Templates reutilizáveis
-│   │   ├── service/
-│   │   │   └── api.ts            # Chamadas HTTP para o backend
-│   │   └── assets/               # Imagens e recursos
-│   ├── public/                    # Arquivos estáticos
-│   ├── index.html
-│   ├── package.json
-│   ├── vite.config.ts
-│   ├── tsconfig.json
-│   └── README.md
-│
-└── README.md                      # Este arquivo
-```
+# Amphiuma
 
----
+Aplicação fullstack para listar e renderizar conteúdo Markdown vindo do GitHub.
 
-## 🛠️ Configuração e Instalação
+Stack principal:
 
-### Pré-requisitos
+- Frontend: Vue 3, Vite, TypeScript
+- Backend: Go, Gin
 
-- **Node.js** >= 18.x
-- **npm** ou **yarn**
-- **Go** >= 1.24.1
+## Visão geral
 
-### 1️⃣ Clone o Repositório
+O frontend permite:
 
-```bash
-git clone https://github.com/car1nhanha/amphiuma.git
-cd amphiuma
-```
+- Buscar conteúdos de um usuário do GitHub
+- Filtrar por extensão de arquivo
+- Abrir e renderizar um arquivo Markdown
 
-### 2️⃣ Instale Dependências do Frontend
+O backend expõe endpoints que:
 
-```bash
-cd app
-npm install
-```
+- Buscam arquivos via GitHub Search API
+- Buscam conteúdo de arquivo no repositório
+- Extraem front matter quando disponível
 
-### 3️⃣ Instale Dependências do Backend
+## Estrutura do projeto
 
-```bash
-cd ../api
-go mod download
-```
+amphiuma/
 
----
+- api/
+  - cmd/api/main.go
+  - internal/files/
+  - internal/interfaces/
+  - pkg/utils/
+- app/
+  - src/
+  - public/
 
-## 🏃 Como Executar
+## Pré-requisitos
 
-### Frontend (Desenvolvimento)
+- Node.js 18+
+- npm
+- Go 1.24+
 
-```bash
-cd app
-npm run dev
-```
+## Variáveis de ambiente
 
-A aplicação estará disponível em `http://localhost:5173`
+Backend, arquivo api/.env:
 
-### Frontend (Produção)
+- GH*PERSONAL_TOKEN=Token ghp*...
+- IS_RUNNING_LOCAL=true
 
-```bash
-cd app
-npm run build
-npm run preview
-```
+Frontend, arquivo app/.env:
 
-### Backend
+- VITE_API_BACKEND=http://localhost:8080
+- VITE_PROJECT_NAME=Amphiuma
 
-```bash
-cd api
-go run ./cmd/api
-```
+Importante:
 
-O servidor estará rodando em `http://localhost:8080`
+- Não comitar tokens reais no repositório.
 
----
+## Instalação
 
-## 📡 API Endpoints
+Na raiz do projeto:
 
-### GET `/v1/:user/:path`
+1. Frontend
+   - cd app
+   - npm install
 
-Busca um arquivo Markdown do repositório GitHub de um usuário.
+2. Backend
+   - cd ../api
+   - go mod tidy
 
-**Parâmetros:**
+## Como rodar em desenvolvimento
 
-- `user` — Usuário do GitHub
-- `path` — Caminho do arquivo dentro do repositório
+1. Subir backend local
+   - cd api
+   - IS_RUNNING_LOCAL=true go run ./cmd/api
 
-**Exemplo:**
+2. Subir frontend
+   - cd app
+   - npm run dev
 
-```bash
-curl http://localhost:8080/v1/car1nhanha/posts/meu-post.md
-```
+URLs locais:
 
-**Resposta:**
+- Frontend: http://localhost:5173
+- Backend: http://localhost:8080
 
-```json
-{
-  "content": "# Meu Post\n\nConteúdo em Markdown...",
-  "encoding": "base64"
-}
-```
+## Build do frontend
 
----
+- cd app
+- npm run build
+- npm run preview
 
-## 🎨 Componentes Vue
+## Rotas do frontend
 
-### Atoms
+- /
+  - Landing
+- /:user
+  - Lista de arquivos do usuário
+- /:user/:repo/:path
+  - Visualização do arquivo
 
-- `input-text.vue` — Input de texto reutilizável
+## Endpoints da API
 
-### Molecules
+1. GET /:user
 
-- `Card-header.vue` — Cabeçalho de cards
-- `Card-posts.vue` — Card para exibir posts
+Lista arquivos do usuário no GitHub.
 
-### Organisms
+Query params:
 
-- `Header.vue` — Cabeçalho principal
-- `Stylize-post.vue` — Renderizador de posts em Markdown
+- extension, opcional, padrão md
 
-### Pages
+Exemplo:
 
-- `Home.vue` — Página inicial com lista de posts
-- `Post.vue` — Página de visualização de um post
+- GET http://localhost:8080/car1nhanha?extension=md
 
-### Templates
+2. GET /:user/:repo/\*path
 
-- `Default.vue` — Template padrão de layout
+Busca e retorna o conteúdo de um arquivo específico.
 
----
+Exemplo:
 
-## 🔄 Fluxo da Aplicação
+- GET http://localhost:8080/car1nhanha/amphiuma/README.md
 
-1. 👤 Usuário acessa a URL `/[usuario-github]`
-2. 🏠 Frontend exibe a página inicial com lista de posts
-3. 📄 Usuário clica em um post
-4. 🔄 Frontend faz requisição ao backend: `/v1/:user/:path`
-5. 🐙 Backend busca o arquivo no GitHub API
-6. 📝 Arquivo é decodificado e retornado
-7. ✨ Frontend renderiza o Markdown com estilo
+3. GET /
 
----
+Health check simples.
 
-## 🤝 Contribuindo
+## Fluxo resumido
 
-Contribuições são bem-vindas! Por favor:
+1. Usuário acessa a landing
+2. Informa o username do GitHub
+3. Frontend consulta GET /:user
+4. Usuário abre um arquivo
+5. Frontend consulta GET /:user/:repo/\*path
+6. Frontend renderiza o Markdown
 
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
+## Observações úteis
 
----
+- Se o backend subir sem IS_RUNNING_LOCAL=true, ele entra em modo Lambda.
+- O frontend usa VITE_API_BACKEND para apontar para a API.
 
-## 📝 Licença
+## Autor
 
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+Lucas Carinhanha
 
----
-
-## 👨‍💻 Autor
-
-**Lucas Carinhanha**
-
-- GitHub: [@car1nhanha](https://github.com/car1nhanha)
-- Email: lucascarinhanha4@gmail.com
-
----
-
-## 🆘 Suporte
-
-Se tiver dúvidas ou encontrar problemas:
-
-1. 🔍 Verifique se o GitHub está acessível
-2. 🔐 Confira se o usuário/repositório existe
-3. 📌 Veja os logs do backend para mais detalhes
-4. 💬 Abra uma [issue](https://github.com/car1nhanha/amphiuma/issues)
-
----
-
-**Feito com ódio por [Lucas Carinhanha](https://github.com/car1nhanha)**
+- GitHub: https://github.com/car1nhanha
