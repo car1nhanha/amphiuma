@@ -60,20 +60,18 @@ func GetFile(user, repo, path string) (*IgetHeader, error) {
 
 func getParts(file string) *IgetHeader {
 	content := &IgetHeader{}
-	// pegar a primeira posição dos ---
+
 	firstTraces := strings.Index(file, "---")
-	if firstTraces < 0 {
-		content.File = file
-		return content
-	}
 	secondTrace := strings.Index(file[firstTraces+3:], "---")
+
 	if secondTrace < 0 {
 		content.File = file
+		content.Header.Description = ""
+		content.Header.Title = getTitle(content.File)
 		return content
 	}
 
 	header := file[firstTraces+3 : secondTrace+3]
-	fmt.Println(header)
 
 	content.Header = convertYamlToStruct(header)
 	content.File = file[secondTrace+7:]
@@ -81,7 +79,6 @@ func getParts(file string) *IgetHeader {
 	return content
 }
 
-//nolint:unused // used within this file
 func convertYamlToStruct(header string) *IHeaderFile {
 	var headerParsed *IHeaderFile
 
@@ -91,4 +88,15 @@ func convertYamlToStruct(header string) *IHeaderFile {
 	}
 
 	return headerParsed
+}
+
+func getTitle(content string) string {
+	lines := strings.Split(content, "\n")
+
+	for _, line := range lines {
+		if strings.HasPrefix(line, "# ") {
+			return line
+		}
+	}
+	return ""
 }
