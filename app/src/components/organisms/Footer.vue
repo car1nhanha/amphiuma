@@ -1,13 +1,21 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const props = defineProps<{
+  inspiredBy: {
+    name: string;
+    url: string;
+    figma: string;
+    user_figma: string;
+  };
+}>();
+</script>
 
 <template>
   <footer>
     <p>
       Inspired by
-      <a href="https://www.figma.com/community/file/1398116799760144340/ai-dark-landing-landing-page-free-figma-file"
-        >AI Dark Landing Landing Page</a
-      >
-      by <a href="https://www.figma.com/@robitaille">Chris Robitaille</a>.
+      <a :href="props.inspiredBy.url"> {{ props.inspiredBy.name }} </a>
+      by <a :href="props.inspiredBy.figma">{{ props.inspiredBy.user_figma }}</a
+      >.
     </p>
     <p>
       Developed by

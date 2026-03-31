@@ -9,6 +9,10 @@
 
 ---
 
+![Amphiuma](./screenshot.png)
+
+---
+
 ## Visão Geral
 
 O Amphiuma conecta dois mundos:

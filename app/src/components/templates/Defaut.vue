@@ -11,7 +11,14 @@ import HeaderOrganism from "../organisms/Header.vue";
     </div>
     <!-- <div class="bottom-space"></div> -->
   </div>
-  <Footer />
+  <Footer
+    :inspiredBy="{
+      name: 'GitHub Blog',
+      url: 'https://www.figma.com/community/file/1138814951106121051',
+      figma: 'https://www.figma.com/@millenamartins',
+      user_figma: 'Millena Martins',
+    }"
+  />
 </template>
 
 <style scoped>

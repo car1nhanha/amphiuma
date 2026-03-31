@@ -37,7 +37,14 @@ const goToProfile = () => {
     </div>
   </div>
 
-  <Footer />
+  <Footer
+    :inspiredBy="{
+      name: 'AI Dark Landing Landing Page',
+      url: 'https://www.figma.com/community/file/1398116799760144340',
+      figma: 'https://www.figma.com/@robitaille',
+      user_figma: 'Chris Robitaille',
+    }"
+  />
 </template>
 
 <style src="./landing.css"></style>
