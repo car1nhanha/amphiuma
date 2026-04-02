@@ -1,5 +1,7 @@
 # Amphiuma
 
+> Amphiuma é um gênero de salamandras aquáticas do sudeste dos Estados Unidos, o único gênero existente dentro da família `Amphiumidae`.
+
 > Um projeto fullstack para descobrir, listar e renderizar arquivos Markdown direto do GitHub, com frontend moderno e backend em Go.
 
 ![Vue.js](https://img.shields.io/badge/Vue.js-42b883?style=for-the-badge&logo=vue.js&logoColor=white)
